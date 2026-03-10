@@ -1,12 +1,770 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kilani Store</title>
+  <title>كيلاني | الإنارة والأدوات الصحية</title>
+  <meta name="description" content="كيلاني للإنارة والأدوات الصحية - ثريات LED، خزائن حمام، مغاسل، خلاطات، مراحيض، وحلول تشطيب عصرية." />
+  <style>
+    :root{
+      --bg:#0f0f10;
+      --bg-soft:#17181b;
+      --card:#1d1f23;
+      --text:#f5f5f5;
+      --muted:#bdbdbd;
+      --line:#2b2e34;
+      --red:#c91f1f;
+      --red-hover:#a91818;
+      --green:#25D366;
+      --white:#ffffff;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:18px;
+      --max:1200px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: Arial, sans-serif;
+      background:linear-gradient(180deg,#0d0d0e 0%, #121316 100%);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(92%, var(--max));
+      margin:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(15,15,16,.88);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:22px;
+    }
+
+    .brand-badge{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--red),#811111);
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      box-shadow:var(--shadow);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:center;
+      font-size:15px;
+      color:#e8e8e8;
+    }
+
+    .nav-links a{
+      opacity:.9;
+    }
+
+    .nav-links a:hover{
+      color:var(--white);
+      opacity:1;
+    }
+
+    .hero{
+      padding:72px 0 46px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .hero-card{
+      background:
+        radial-gradient(circle at top right, rgba(201,31,31,.18), transparent 35%),
+        linear-gradient(180deg, #1a1b1f 0%, #131417 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:28px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      min-height:420px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding:8px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      color:#f3d7d7;
+      background:rgba(255,255,255,.03);
+      margin-bottom:20px;
+      font-size:14px;
+    }
+
+    h1{
+      font-size:clamp(32px, 5vw, 58px);
+      line-height:1.15;
+      margin-bottom:16px;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:18px;
+      max-width:700px;
+      margin-bottom:24px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:15px 22px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.2s ease;
+      border:1px solid transparent;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:var(--red);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--red-hover);
+    }
+
+    .btn-whatsapp{
+      background:var(--green);
+      color:#fff;
+    }
+
+    .btn-secondary{
+      background:transparent;
+      border-color:rgba(255,255,255,.12);
+      color:#fff;
+    }
+
+    .hero-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .chip{
+      padding:10px 14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:999px;
+      color:#ddd;
+      font-size:14px;
+    }
+
+    .hero-side{
+      display:grid;
+      grid-template-rows:1fr 1fr;
+      gap:24px;
+    }
+
+    .mini-card{
+      background:linear-gradient(180deg,#1a1c20 0%, #15171a 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      min-height:198px;
+    }
+
+    .mini-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -20px -30px auto;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:rgba(201,31,31,.15);
+      filter:blur(20px);
+    }
+
+    .mini-card h3{
+      font-size:24px;
+      margin-bottom:8px;
+    }
+
+    .mini-card p{
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    section{
+      padding:28px 0 10px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+
+    .section-head h2{
+      font-size:30px;
+    }
+
+    .section-head p{
+      color:var(--muted);
+      max-width:700px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,#1b1d21 0%, #16181c 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.2s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+    }
+
+    .card-media{
+      height:220px;
+      background:
+        linear-gradient(135deg, rgba(201,31,31,.18), rgba(255,255,255,.02)),
+        linear-gradient(180deg, #2a2d33 0%, #1c1f24 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      padding:16px;
+      font-size:26px;
+      font-weight:700;
+    }
+
+    .card-body{
+      padding:20px;
+    }
+
+    .card-body h3{
+      margin-bottom:8px;
+      font-size:23px;
+    }
+
+    .card-body p{
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:16px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .feature{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:14px;
+      padding:12px 14px;
+      color:#ebebeb;
+      font-size:14px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-top:14px;
+    }
+
+    .stat{
+      background:linear-gradient(180deg,#191b1f 0%, #14161a 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:20px;
+      padding:22px 18px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:30px;
+      margin-bottom:6px;
+      color:#fff;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .panel{
+      background:linear-gradient(180deg,#1a1c20 0%, #14161a 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:22px;
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel h3{
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .panel p{
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .contact-item{
+      padding:14px 16px;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      margin-bottom:12px;
+    }
+
+    .contact-item b{
+      display:block;
+      margin-bottom:4px;
+      font-size:15px;
+    }
+
+    .contact-item span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .cta{
+      margin-top:24px;
+      background:
+        radial-gradient(circle at left top, rgba(201,31,31,.22), transparent 35%),
+        linear-gradient(180deg,#181a1f 0%, #111215 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:28px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .cta h2{
+      font-size:34px;
+      margin-bottom:10px;
+    }
+
+    .cta p{
+      color:var(--muted);
+      max-width:760px;
+      margin:0 auto 20px;
+    }
+
+    footer{
+      margin-top:40px;
+      padding:28px 0 36px;
+      border-top:1px solid rgba(255,255,255,.06);
+      color:#b9b9b9;
+      text-align:center;
+      font-size:14px;
+    }
+
+    .floating-whatsapp{
+      position:fixed;
+      left:18px;
+      bottom:18px;
+      z-index:999;
+      background:var(--green);
+      color:#fff;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      box-shadow:0 12px 25px rgba(0,0,0,.28);
+    }
+
+    @media (max-width: 980px){
+      .hero-grid,
+      .about,
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .cards,
+      .stats{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .hero-card{
+        min-height:auto;
+      }
+    }
+
+    @media (max-width: 640px){
+      .nav{
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:12px;
+        font-size:14px;
+      }
+
+      .hero{
+        padding-top:40px;
+      }
+
+      .hero-card,
+      .mini-card,
+      .panel,
+      .cta{
+        padding:22px;
+      }
+
+      .cards,
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:34px;
+      }
+
+      .section-head h2,
+      .cta h2{
+        font-size:26px;
+      }
+
+      .card-media{
+        height:180px;
+        font-size:22px;
+      }
+    }
+  </style>
 </head>
-<body style="background:#111;color:#fff;text-align:center;font-family:Arial;padding:60px;">
-  <h1>كيلاني للإنارة والأدوات الصحية</h1>
-  <p>ثريات LED • خزائن حمام • أدوات صحية</p>
+<body>
+
+  <div class="topbar">
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="brand-badge">K</div>
+        <span>كيلاني</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#categories">الأقسام</a>
+        <a href="#about">من نحن</a>
+        <a href="#contact">تواصل معنا</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="eyebrow">معرض إنارة وأدوات صحية</div>
+        <h1>كل ما تحتاجه لتشطيب أجمل، في مكان واحد</h1>
+        <p>
+          ثريات LED، إنارة عصرية، خزائن حمام، مغاسل، خلاطات، مراحيض، وإكسسوارات
+          بتصاميم حديثة وجودة ممتازة تناسب البيت والمشروع والمعرض.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#categories">استكشف الأقسام</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/972XXXXXXXXX" target="_blank">اطلب عبر واتساب</a>
+          <a class="btn btn-secondary" href="tel:+972XXXXXXXXX">اتصل الآن</a>
+        </div>
+
+        <div class="hero-points">
+          <div class="chip">تصاميم عصرية</div>
+          <div class="chip">جودة عالية</div>
+          <div class="chip">أسعار منافسة</div>
+          <div class="chip">خدمة سريعة</div>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="mini-card">
+          <h3>قسم الإنارة</h3>
+          <p>ثريات، إنارة داخلية، إنارة ديكورية، حلول LED حديثة للمنازل والمعارض.</p>
+        </div>
+        <div class="mini-card">
+          <h3>قسم الأدوات الصحية</h3>
+          <p>خزائن حمام، أحواض، خلاطات، مراحيض، ستاند دش، وإكسسوارات تشطيب أنيقة.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="categories">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>أقسام المعرض</h2>
+        </div>
+        <p>
+          هذه النسخة مهيأة لتكون أساس الموقع. لاحقًا نرفع صور المنتجات الحقيقية
+          ونضيف صفحات منفصلة لكل قسم أو موديل.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-media">ثريات LED</div>
+          <div class="card-body">
+            <h3>الثريات والإنارة</h3>
+            <p>عرض تشكيلة الإنارة الحديثة بشكل أنيق وسهل للزبون.</p>
+            <div class="feature-list">
+              <div class="feature">ثريات حديثة</div>
+              <div class="feature">إنارة سقفية وجدارية</div>
+              <div class="feature">حلول LED متنوعة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-media">خزائن حمام</div>
+          <div class="card-body">
+            <h3>خزائن الحمام</h3>
+            <p>عرض موديلات الخزائن مع الأحواض والمرايا بطريقة مرتبة واحترافية.</p>
+            <div class="feature-list">
+              <div class="feature">مقاسات متعددة</div>
+              <div class="feature">ألوان عصرية</div>
+              <div class="feature">أحواض ومرايا</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-media">أدوات صحية</div>
+          <div class="card-body">
+            <h3>الأدوات الصحية</h3>
+            <p>قسم شامل للمغاسل والخلاطات والمراحيض وأنظمة الدش والإكسسوارات.</p>
+            <div class="feature-list">
+              <div class="feature">مغاسل وخلاطات</div>
+              <div class="feature">مراحيض وشطافات</div>
+              <div class="feature">دش وإكسسوارات</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>01</strong>
+          <span>موقع احترافي</span>
+        </div>
+        <div class="stat">
+          <strong>02</strong>
+          <span>جاهز لرفع الصور</span>
+        </div>
+        <div class="stat">
+          <strong>03</strong>
+          <span>مناسب للجوال</span>
+        </div>
+        <div class="stat">
+          <strong>04</strong>
+          <span>سهل التطوير لاحقًا</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>من نحن</h2>
+        </div>
+        <p>
+          نص احترافي كبداية، ويمكننا لاحقًا تعديله بصياغة أقوى حسب المدينة، الجمهور، وطبيعة المعرض.
+        </p>
+      </div>
+
+      <div class="about">
+        <div class="panel">
+          <h3>معرض كيلاني</h3>
+          <p>
+            نوفر حلولًا متكاملة في الإنارة والأدوات الصحية مع اهتمام كبير بالشكل،
+            الجودة، والسعر المناسب. هدفنا أن يجد الزبون كل ما يحتاجه لتشطيب منزله
+            أو مشروعه بسهولة وثقة.
+          </p>
+          <p>
+            هذا الموقع هو الواجهة الرقمية للمعرض، ويمكن توسيعه لاحقًا ليشمل صور
+            حقيقية، أسعار، عروض، وصفحات مخصصة لكل منتج أو مجموعة.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>لماذا يثق بنا الزبون؟</h3>
+          <div class="feature-list">
+            <div class="feature">تنسيق عرض واضح ومريح</div>
+            <div class="feature">تنوع في الإنارة والأدوات الصحية</div>
+            <div class="feature">سهولة التواصل والطلب</div>
+            <div class="feature">قابلية تطوير الموقع إلى متجر أكبر لاحقًا</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>تواصل معنا</h2>
+        </div>
+        <p>
+          عدّل البيانات التالية لاحقًا برقمك الحقيقي، موقع المعرض، وروابط صفحاتك.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="panel">
+          <h3>معلومات المعرض</h3>
+
+          <div class="contact-item">
+            <b>رقم الهاتف</b>
+            <span>ضع رقم الهاتف هنا</span>
+          </div>
+
+          <div class="contact-item">
+            <b>واتساب</b>
+            <span>ضع رقم الواتساب هنا</span>
+          </div>
+
+          <div class="contact-item">
+            <b>الموقع</b>
+            <span>ضع عنوان المعرض هنا</span>
+          </div>
+
+          <div class="contact-item">
+            <b>أوقات العمل</b>
+            <span>ضع أوقات العمل هنا</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>روابط سريعة</h3>
+
+          <div class="hero-actions">
+            <a class="btn btn-whatsapp" href="https://wa.me/972XXXXXXXXX" target="_blank">واتساب</a>
+            <a class="btn btn-secondary" href="tel:+972XXXXXXXXX">اتصال</a>
+            <a class="btn btn-primary" href="#">فيسبوك</a>
+          </div>
+
+          <p style="margin-top:10px;">
+            لاحقًا نضيف زرًا خاصًا بالخرائط، ورابط صفحة فيسبوك، وربما معرض صور منفصل
+            للثريات وخزائن الحمام.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta">
+        <h2>جاهز للمرحلة التالية</h2>
+        <p>
+          الموقع الآن أصبح واجهة حقيقية ومرتبة. الخطوة القادمة هي رفع صور منتجاتك
+          الحقيقية واستبدال أماكن العرض الحالية بموديلات الثريات وخزائن الحمام
+          الموجودة عندك.
+        </p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="#categories">مشاهدة الأقسام</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/972XXXXXXXXX" target="_blank">ابدأ الطلب</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    جميع الحقوق محفوظة © كيلاني للإنارة والأدوات الصحية
+  </footer>
+
+  <a class="floating-whatsapp" href="https://wa.me/972XXXXXXXXX" target="_blank" aria-label="WhatsApp">✆</a>
+
 </body>
 </html>
